@@ -20,7 +20,17 @@ class SellerProfilePage extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Seller Profile'),
         ),
-        body: BlocBuilder<SellerProfileBloc, SellerProfileState>(
+        body: BlocConsumer<SellerProfileBloc, SellerProfileState>(
+          listener: (context, state) {
+            if (state is SellerProfileError) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.message),
+                  backgroundColor: Colors.red,
+                ),
+              );
+            }
+          },
           builder: (context, state) {
             if (state is SellerProfileLoading ||
                 state is SellerProfileInitial) {
@@ -51,11 +61,6 @@ class SellerProfilePage extends StatelessWidget {
                     // TODO: Add a list of the seller's products here
                   ],
                 ),
-              );
-            }
-            if (state is SellerProfileError) {
-              return Center(
-                child: Text('Failed to load profile: ${state.message}'),
               );
             }
             return const SizedBox.shrink();

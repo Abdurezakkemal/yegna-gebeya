@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:yegna_gebeya/features/buyer/data/repositories/buyer_repository_impl.dart';
 import 'package:yegna_gebeya/features/buyer/domain/repositories/buyer_repository.dart';
 import 'package:yegna_gebeya/features/buyer/presentation/bloc/seller_list_bloc.dart';
@@ -55,6 +56,9 @@ class SellerListPage extends StatelessWidget {
                           margin: const EdgeInsets.symmetric(
                               horizontal: 8.0, vertical: 4.0),
                           child: ListTile(
+                            onTap: () {
+                              context.go('/sellerProfile/${seller.userId}');
+                            },
                             leading: CircleAvatar(
                               backgroundImage: NetworkImage(seller.imgUrl),
                               onBackgroundImageError:
